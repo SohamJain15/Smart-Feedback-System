@@ -1,0 +1,82 @@
+text,sentiment,topic,priority
+The library wifi drops every few minutes,negative,technology,high
+Internet access is unreliable during online lectures,negative,technology,high
+Campus wifi is fast and stable,positive,technology,low
+The new student portal is easy to use,positive,technology,low
+Computers freeze during programming practicals,negative,laboratory,high
+Laboratory machines crash when running simulations,negative,laboratory,critical
+The lab equipment is modern and works well,positive,laboratory,low
+Lab assistants explain the equipment patiently,positive,laboratory,low
+The cafeteria food is cold and overpriced,negative,cafeteria,medium
+There are not enough healthy options in the canteen,negative,cafeteria,medium
+The cafeteria service is quick and friendly,positive,cafeteria,low
+Lunch quality has improved significantly,positive,cafeteria,low
+The hostel water supply stopped again,negative,hostel,critical
+My hostel room has a serious plumbing leak,negative,hostel,high
+Hostel security is helpful and attentive,positive,hostel,low
+The residence halls are clean and comfortable,positive,hostel,low
+The professor rushes through difficult concepts,negative,teaching,medium
+Course material is outdated and confusing,negative,teaching,medium
+The instructor gives clear and engaging lectures,positive,teaching,low
+Faculty provide useful feedback on assignments,positive,teaching,low
+The library has too few seats during exams,negative,library,medium
+Important textbooks are missing from the library,negative,library,high
+The library staff helped me find research papers,positive,library,low
+The study areas are quiet and well maintained,positive,library,low
+The bus arrives late almost every morning,negative,transport,high
+Campus shuttle routes are confusing,negative,transport,medium
+The new bus schedule is convenient,positive,transport,low
+Shuttle drivers are courteous and punctual,positive,transport,low
+The sports ground lights do not work,negative,facilities,medium
+Broken elevators make the building inaccessible,negative,facilities,critical
+The renovated classrooms are bright and clean,positive,facilities,low
+Campus maintenance fixed the air conditioning quickly,positive,facilities,low
+I am unsure about the scholarship application process,neutral,administration,medium
+The registration portal shows pending status,neutral,administration,medium
+The office processed my documents promptly,positive,administration,low
+Admissions staff answered my questions clearly,positive,administration,low
+The exam timetable changed without notice,negative,administration,high
+Fee payment confirmation is still missing,negative,administration,high
+The campus wifi password expired today,neutral,technology,low
+The projector in lab three needs replacement,neutral,laboratory,medium
+Can the cafeteria publish its weekly menu,neutral,cafeteria,low
+Hostel visitor hours need clarification,neutral,hostel,low
+The teaching timetable is available online,neutral,teaching,low
+Library opening hours changed this semester,neutral,library,low
+Please add one more evening shuttle,neutral,transport,medium
+The classroom reservation system is being updated,neutral,facilities,low
+I need information about identity cards,neutral,administration,low
+Network outage prevents submission of assignments,negative,technology,critical
+The microscope is unavailable for required experiments,negative,laboratory,high
+Food allergy labels are absent in the cafeteria,negative,cafeteria,high
+Hostel fire alarm has been sounding all night,negative,hostel,critical
+My teacher cancelled class without explanation,negative,teaching,medium
+Library database search returns no results,negative,library,medium
+The last shuttle leaves before evening classes end,negative,transport,high
+The washroom near the lecture hall is unusable,negative,facilities,high
+The administration office was closed during posted hours,negative,administration,medium
+Reliable wifi makes studying much easier,positive,technology,low
+Our chemistry lab was well prepared today,positive,laboratory,low
+The canteen now offers fresh fruit,positive,cafeteria,low
+The hostel common room is a great place to study,positive,hostel,low
+The lecturer held an excellent revision session,positive,teaching,low
+Library extended hours are helpful before finals,positive,library,low
+The electric campus bus is comfortable,positive,transport,low
+New ramps have made the campus more accessible,positive,facilities,low
+Staff resolved my enrollment issue quickly,positive,administration,low
+The laboratory service is not bad and the equipment works,positive,laboratory,low
+The campus wifi is not bad today,positive,technology,low
+The library study environment is not bad at all,positive,library,low
+The cafeteria food was not bad for the price,positive,cafeteria,low
+The hostel facilities are not bad overall,positive,hostel,low
+The shuttle service is not bad this semester,positive,transport,low
+The classrooms are not bad after the renovation,positive,facilities,low
+The teaching quality is not bad and explanations are clear,positive,teaching,low
+The laboratory computers are not good and fail often,negative,laboratory,high
+The wifi connection is not good during lectures,negative,technology,high
+The library service is not very good at busy times,negative,library,medium
+The cafeteria food is not good today,negative,cafeteria,medium
+The hostel water supply is not good,negative,hostel,high
+The shuttle timing is not good for evening classes,negative,transport,medium
+The classroom facilities are not very good,negative,facilities,medium
+The teaching support is not good for this course,negative,teaching,medium

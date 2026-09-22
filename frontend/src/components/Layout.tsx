@@ -1,0 +1,3 @@
+import {NavLink,Outlet} from 'react-router-dom';
+const links=[['/feedback','Submit feedback'],['/dashboard','Dashboard'],['/review','Feedback review'],['/models','Model operations']] as const;
+export function Layout(){return <div className="app-shell"><aside className="sidebar"><div className="product-name">Smart Feedback System</div><div className="product-note">Local review and model operations</div><nav>{links.map(([to,label],index)=><NavLink key={to} to={to} className={({isActive})=>`nav-link ${isActive?'nav-link-active':''}`}><span>{String(index+1).padStart(2,'0')}</span>{label}</NavLink>)}</nav><div className="sidebar-foot">SQLite · Local ML</div></aside><main className="workspace"><Outlet/></main></div>}
