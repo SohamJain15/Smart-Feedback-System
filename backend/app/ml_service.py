@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 import shutil
 import joblib
 import pandas as pd
@@ -10,7 +11,7 @@ from sklearn.pipeline import Pipeline
 
 ROOT = Path(__file__).resolve().parents[1]
 DATASET = ROOT / "data" / "training_data.csv"
-MODELS = ROOT / "models"
+MODELS = Path(os.environ.get("SMART_FEEDBACK_MODELS", ROOT / "models"))
 TARGETS = ["sentiment", "topic", "priority"]
 
 class MLService:

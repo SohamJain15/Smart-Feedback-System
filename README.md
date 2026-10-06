@@ -37,6 +37,8 @@ frontend/
 
 - Python 3.10 or newer
 - Node.js 18 or newer
+- Docker Desktop running, for Docker/Compose and Selenium container workflows
+- Jenkins running, only when executing the supplied CI/CD pipeline
 
 ## Run locally
 
@@ -64,6 +66,22 @@ npm run dev
 Open `http://127.0.0.1:5173/feedback`.
 
 The Vite development server forwards `/api` calls to the FastAPI server at `127.0.0.1:8000`.
+
+## Run with Docker
+
+This starts the complete local container stack. The frontend is available at `http://127.0.0.1:8080`; the backend health endpoint is available at `http://127.0.0.1:8001/api/health`.
+
+```powershell
+docker compose up --build
+```
+
+Use `Ctrl+C` to stop foreground containers, then remove the stack when needed:
+
+```powershell
+docker compose down
+```
+
+SQLite data and generated model versions are stored in the named Docker volume `feedback_runtime`. This is intentional: they survive ordinary container restarts. Use `docker compose down --volumes` only when you deliberately want a clean demo database and new initial model.
 
 ## Pages
 
@@ -98,6 +116,24 @@ npm run build
 | `GET` | `/api/analytics/overview` | Database-derived dashboard summary. |
 | `POST` | `/api/models/retrain` | Start a real background retraining run. |
 | `GET` | `/api/models/training-status/{id}` | Inspect the run stage and result. |
+
+## Jenkins CI/CD pipeline
+
+The repository includes a cross-platform `Jenkinsfile` for Windows or Linux Jenkins agents. The agent needs Python, Node.js, Docker, Docker Compose, and permission to run Docker.
+
+1. Create a **Pipeline** job in Jenkins.
+2. Connect it to this GitHub repository using **Pipeline script from SCM**.
+3. Select the repository branch and set the script path to `Jenkinsfile`.
+4. Run **Build Now**, or configure a GitHub webhook to build on push.
+
+The pipeline performs these real stages:
+
+```text
+checkout → backend pytest → frontend production build
+→ Docker Compose build/start → Selenium browser smoke test → container cleanup
+```
+
+The Selenium test opens the containerized React UI, submits feedback, waits for ML analysis, saves the feedback, and opens the dashboard. It runs with Chrome in the `selenium/standalone-chrome` container.
 
 ## GitHub notes
 
