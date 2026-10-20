@@ -276,10 +276,11 @@ def test_retrain_quotes_job_name_with_spaces(monkeypatch):
     assert "/job/feedback%20retrain/buildWithParameters" in seen[0].full_url
 
 
+# Explicit ids + a real (empty) body: on Python 3.10 pytest crashes while auto-naming an HTTPError whose fp is None.
 @pytest.mark.parametrize("error", [
     urllib.error.URLError("connection refused"),
-    urllib.error.HTTPError("http://x", 401, "Unauthorized", {}, None),
-])
+    urllib.error.HTTPError("http://x", 401, "Unauthorized", {}, io.BytesIO(b"")),
+], ids=["url-error", "http-401"])
 def test_retrain_jenkins_error_returns_502(monkeypatch, error):
     _set_jenkins_env(monkeypatch)
 
