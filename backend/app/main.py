@@ -54,11 +54,11 @@ def options():
     return {"categories": [value.title() for value in labels["topic"]], "labels": labels}
 
 @app.post("/api/feedback/analyze")
-def analyze(data: AnalyzeRequest): return {"model_version": ml.version, "predictions": ml.predict(data.text, data.category)}
+def analyze(data: AnalyzeRequest): return {"model_version": ml.version, "predictions": ml.predict(data.text, data.category, data.rating)}
 
 @app.post("/api/feedback")
 def create_feedback(data: FeedbackCreate, session: Session = Depends(get_session)):
-    prediction = ml.predict(data.text, data.category)
+    prediction = ml.predict(data.text, data.category, data.rating)
     record = Feedback(
         **data.model_dump(),
         predicted_sentiment=prediction["sentiment"]["label"],

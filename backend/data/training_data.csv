@@ -80,3 +80,417 @@ The hostel water supply is not good,negative,hostel,high
 The shuttle timing is not good for evening classes,negative,transport,medium
 The classroom facilities are not very good,negative,facilities,medium
 The teaching support is not good for this course,negative,teaching,medium
+The professor is frustrating for students.,negative,teaching,medium
+The teaching staff are badly managed.,negative,teaching,medium
+The subject teacher is very slow.,negative,teaching,medium
+The teachers are unprofessional.,negative,teaching,medium
+The lectures are not up to the mark.,negative,teaching,medium
+Our lecturer is very poor.,negative,teaching,medium
+The teachers are not good enough.,negative,teaching,medium
+The professor does not explain the concepts properly.,negative,teaching,medium
+Our class teacher is not taking efforts to teach.,negative,teaching,medium
+Our class teacher does not complete the syllabus.,negative,teaching,medium
+The professor does not clear our doubts.,negative,teaching,medium
+Our lecturer is rushing through the portion.,negative,teaching,medium
+The professor is just reading from the slides.,negative,teaching,medium
+The lectures do not care about students.,negative,teaching,medium
+Our class teacher is always late to class.,negative,teaching,medium
+The teachers are boring and hard to follow.,negative,teaching,medium
+The subject teacher does not give proper notes.,negative,teaching,medium
+The teachers have stopped working.,negative,teaching,high
+Our lecturer is affecting our studies badly.,negative,teaching,high
+The teachers are not working at all.,negative,teaching,high
+The lectures keep failing again and again.,negative,teaching,high
+Faculty members are completely broken.,negative,teaching,high
+The maths teacher has been down for three days.,negative,teaching,high
+A teacher is harassing students during practicals.,negative,teaching,critical
+The professor threatened to fail students who complained.,negative,teaching,critical
+Students are being verbally abused by a faculty member in class.,negative,teaching,critical
+The professor is supportive.,positive,teaching,low
+The subject teacher is really good.,positive,teaching,low
+The subject teacher does a fantastic job.,positive,teaching,low
+Our lecturer is very helpful.,positive,teaching,low
+The teaching staff are very good and reliable.,positive,teaching,low
+The professor is amazing this semester.,positive,teaching,low
+The lectures are wonderful.,positive,teaching,low
+The professor explains concepts very clearly.,positive,teaching,low
+The subject teacher is very knowledgeable.,positive,teaching,low
+The teachers are patient with our doubts.,positive,teaching,low
+The subject teacher is taking great efforts to teach.,positive,teaching,low
+Our lecturer makes the lectures interesting.,positive,teaching,low
+The lab instructor is the best in the department.,positive,teaching,low
+Is the professor open during the holidays?,neutral,teaching,low
+How do I get information about the subject teacher?,neutral,teaching,low
+When does the maths teacher open?,neutral,teaching,low
+Will the lectures be available during the exams?,neutral,teaching,low
+Please inform us if the lab instructor will change next term.,neutral,teaching,low
+"The teaching staff are fine I guess, neither good nor bad.",neutral,teaching,low
+Can someone tell me about the lab instructor?,neutral,teaching,low
+The maths teacher is average.,neutral,teaching,low
+"The subject teacher is okay, nothing special.",neutral,teaching,low
+Is there any change in the professor this semester?,neutral,teaching,low
+Could you tell me the rules for the professor?,neutral,teaching,low
+The electronics lab does not meet expectations.,negative,laboratory,medium
+The lab computers are careless.,negative,laboratory,medium
+The chemistry lab is worse than last semester.,negative,laboratory,medium
+The lab systems are very slow.,negative,laboratory,medium
+The lab systems are the worst.,negative,laboratory,medium
+The lab systems are disappointing.,negative,laboratory,medium
+The lab assistant is really bad.,negative,laboratory,medium
+The lab assistant is outdated.,negative,laboratory,medium
+The chemistry lab does not have working software.,negative,laboratory,medium
+The chemistry lab is not maintained properly.,negative,laboratory,medium
+The practical sessions are always crashing.,negative,laboratory,medium
+The lab assistant is failing every single day.,negative,laboratory,high
+The practical sessions are broken and nobody is fixing it.,negative,laboratory,high
+The electronics lab is not working at all.,negative,laboratory,high
+The lab systems have stopped working.,negative,laboratory,high
+The lab computers are completely broken.,negative,laboratory,high
+The lab assistant is unusable.,negative,laboratory,high
+There is a gas leak in the chemistry lab and students feel dizzy.,negative,laboratory,critical
+Sparks are coming from the lab switchboard.,negative,laboratory,critical
+Acid spilled in the lab and nobody is cleaning it.,negative,laboratory,critical
+The lab fire extinguisher is empty and wires are burning.,negative,laboratory,critical
+The practical sessions have improved a lot.,positive,laboratory,low
+The lab equipment is really good.,positive,laboratory,low
+The physics lab is very good and reliable.,positive,laboratory,low
+The electronics lab is very helpful.,positive,laboratory,low
+The electronics lab is great.,positive,laboratory,low
+The lab assistant is excellent.,positive,laboratory,low
+The chemistry lab is well organised.,positive,laboratory,low
+The lab equipment is well equipped.,positive,laboratory,low
+The lab assistant is running smoothly.,positive,laboratory,low
+The electronics lab is updated with new software.,positive,laboratory,low
+Is the physics lab open during the holidays?,neutral,laboratory,low
+Who should we contact regarding the lab equipment?,neutral,laboratory,low
+The chemistry lab is average.,neutral,laboratory,low
+How do I get information about the lab equipment?,neutral,laboratory,low
+Where can I find the notice about the lab equipment?,neutral,laboratory,low
+I have a question about the physics lab.,neutral,laboratory,low
+Could you tell me the rules for the physics lab?,neutral,laboratory,low
+What are the timings of the lab computers?,neutral,laboratory,low
+I want to know the schedule for the lab assistant.,neutral,laboratory,low
+Can someone tell me about the lab equipment?,neutral,laboratory,low
+When does the practical sessions open?,neutral,laboratory,low
+The canteen prices have been ignored for weeks.,negative,cafeteria,medium
+The canteen staff are not up to the mark.,negative,cafeteria,medium
+The canteen food is badly managed.,negative,cafeteria,medium
+The cafeteria service is not satisfactory.,negative,cafeteria,medium
+The lunch menu is not good enough.,negative,cafeteria,medium
+The lunch menu is worse than last semester.,negative,cafeteria,medium
+The lunch menu is unprofessional.,negative,cafeteria,medium
+The lunch menu is stale and cold.,negative,cafeteria,medium
+The cafeteria is overpriced.,negative,cafeteria,medium
+The cafeteria service is unhygienic.,negative,cafeteria,medium
+The lunch menu is tasteless.,negative,cafeteria,medium
+The canteen food is too oily.,negative,cafeteria,medium
+The canteen prices are affecting our studies badly.,negative,cafeteria,high
+The canteen food has stopped working.,negative,cafeteria,high
+The cafeteria stops working in the middle of class.,negative,cafeteria,high
+The canteen food is failing every single day.,negative,cafeteria,high
+The canteen staff are not working since a week.,negative,cafeteria,high
+The cafeteria is broken and nobody is fixing it.,negative,cafeteria,high
+Many students got food poisoning after eating in the canteen.,negative,cafeteria,critical
+We found a dead lizard in the canteen food.,negative,cafeteria,critical
+Students are vomiting after eating the mess food.,negative,cafeteria,critical
+The mess food has improved a lot.,positive,cafeteria,low
+The canteen prices are very good and reliable.,positive,cafeteria,low
+The canteen prices are excellent.,positive,cafeteria,low
+The cafeteria service is very helpful.,positive,cafeteria,low
+The cafeteria is well organised.,positive,cafeteria,low
+The cafeteria is supportive.,positive,cafeteria,low
+The cafeteria service is really good.,positive,cafeteria,low
+The cafeteria service is tasty.,positive,cafeteria,low
+The cafeteria service is fresh and hot.,positive,cafeteria,low
+The cafeteria service is affordable.,positive,cafeteria,low
+The mess food is hygienic.,positive,cafeteria,low
+Is there any change in the snacks in the canteen this semester?,neutral,cafeteria,low
+The canteen prices are average.,neutral,cafeteria,low
+"The canteen staff are okay, nothing special.",neutral,cafeteria,low
+When does the canteen food open?,neutral,cafeteria,low
+What are the timings of the mess food?,neutral,cafeteria,low
+Is the cafeteria open during the holidays?,neutral,cafeteria,low
+"The mess food is fine I guess, neither good nor bad.",neutral,cafeteria,low
+Will the canteen prices be available during the exams?,neutral,cafeteria,low
+I have a question about the canteen staff.,neutral,cafeteria,low
+Who should we contact regarding the canteen prices?,neutral,cafeteria,low
+When will the snacks in the canteen be updated?,neutral,cafeteria,low
+The hostel bathrooms are unprofessional.,negative,hostel,medium
+The hostel facilities do not meet expectations.,negative,hostel,medium
+The hostel bathrooms are frustrating for students.,negative,hostel,medium
+The hostel bathrooms are the worst.,negative,hostel,medium
+The hostel wifi is not helpful at all.,negative,hostel,medium
+The hostel security has been ignored for weeks.,negative,hostel,medium
+The hostel rooms are careless.,negative,hostel,medium
+The hostel rooms are dirty and smelly.,negative,hostel,medium
+The hostel water supply is not cleaned regularly.,negative,hostel,medium
+The hostel wifi is rude to students.,negative,hostel,medium
+The hostel water supply is noisy at night.,negative,hostel,medium
+The hostel security is affecting our studies badly.,negative,hostel,high
+The hostel warden is broken and nobody is fixing it.,negative,hostel,high
+The hostel bathrooms keep failing again and again.,negative,hostel,high
+The hostel warden is causing us to miss lectures.,negative,hostel,high
+The hostel bathrooms are failing every single day.,negative,hostel,high
+The hostel wifi is not working at all.,negative,hostel,high
+Smoke is coming out of a hostel room and the fire alarm is not working.,negative,hostel,critical
+A student got an electric shock from the hostel switch.,negative,hostel,critical
+Ragging is happening in the hostel at night.,negative,hostel,critical
+The hostel ceiling is cracking and may fall on students.,negative,hostel,critical
+The hostel security is well organised.,positive,hostel,low
+The hostel warden has improved a lot.,positive,hostel,low
+The hostel warden is nice and friendly.,positive,hostel,low
+The hostel facilities are great.,positive,hostel,low
+The hostel bathrooms are very good and reliable.,positive,hostel,low
+The hostel wifi is excellent.,positive,hostel,low
+The hostel mess is better than expected.,positive,hostel,low
+The hostel facilities are comfortable.,positive,hostel,low
+The hostel security is clean.,positive,hostel,low
+The hostel warden is safe and secure.,positive,hostel,low
+The hostel facilities are quiet for studying.,positive,hostel,low
+Will the hostel wifi be available during the exams?,neutral,hostel,low
+Does the hostel security work on Saturday?,neutral,hostel,low
+Is there any change in the hostel mess this semester?,neutral,hostel,low
+Can someone tell me about the hostel mess?,neutral,hostel,low
+Could you tell me the rules for the hostel rooms?,neutral,hostel,low
+I have a question about the hostel rooms.,neutral,hostel,low
+When will the hostel warden be updated?,neutral,hostel,low
+How do I get information about the hostel mess?,neutral,hostel,low
+Please inform us if the hostel facilities will change next term.,neutral,hostel,low
+"The hostel bathrooms are fine I guess, neither good nor bad.",neutral,hostel,low
+What are the timings of the hostel bathrooms?,neutral,hostel,low
+The library timings are not up to the mark.,negative,library,medium
+The digital library is not good enough.,negative,library,medium
+The librarian is not satisfactory.,negative,library,medium
+The reading room is badly managed.,negative,library,medium
+The library does not meet expectations.,negative,library,medium
+The library timings are not helpful at all.,negative,library,medium
+The book issue system has been ignored for weeks.,negative,library,medium
+The librarian is too noisy.,negative,library,medium
+The reading room does not have the latest books.,negative,library,medium
+The reading room is closed when we need it.,negative,library,medium
+The library is rude to students.,negative,library,medium
+The reading room is failing every single day.,negative,library,high
+The book issue system is not working since a week.,negative,library,high
+The library staff keep failing again and again.,negative,library,high
+The library is completely broken.,negative,library,high
+The library timings are broken and nobody is fixing it.,negative,library,high
+The book issue system keeps crashing during practicals.,negative,library,high
+The library wiring is sparking near the bookshelves.,negative,library,critical
+Water is leaking onto the electrical panel in the library.,negative,library,critical
+The digital library is wonderful.,positive,library,low
+The library is nice and friendly.,positive,library,low
+The library staff are very helpful.,positive,library,low
+The book issue system does a fantastic job.,positive,library,low
+The library is excellent.,positive,library,low
+The library staff are well organised.,positive,library,low
+The book issue system is better than expected.,positive,library,low
+The library timings are quiet and peaceful.,positive,library,low
+The library books have a great collection.,positive,library,low
+The digital library is very cooperative.,positive,library,low
+Will the librarian be available during the exams?,neutral,library,low
+Could you tell me the rules for the library staff?,neutral,library,low
+Where can I find the notice about the librarian?,neutral,library,low
+"The book issue system is fine I guess, neither good nor bad.",neutral,library,low
+What are the timings of the library timings?,neutral,library,low
+Who should we contact regarding the library staff?,neutral,library,low
+The library books are average.,neutral,library,low
+How do I get information about the librarian?,neutral,library,low
+"The library staff are okay, nothing special.",neutral,library,low
+Is the library books open during the holidays?,neutral,library,low
+Is there any change in the digital library this semester?,neutral,library,low
+The bus timings are not helpful at all.,negative,transport,medium
+The bus driver is badly managed.,negative,transport,medium
+The bus route is not taking any effort.,negative,transport,medium
+The parking area is disappointing.,negative,transport,medium
+The shuttle service does not meet expectations.,negative,transport,medium
+The bus timings are not improving at all.,negative,transport,medium
+The shuttle service is really bad.,negative,transport,medium
+The bus route is always late.,negative,transport,medium
+The bus route is overcrowded.,negative,transport,medium
+The evening bus is not on time.,negative,transport,medium
+The bus route is rude to students.,negative,transport,medium
+The evening bus is affecting our studies badly.,negative,transport,high
+The parking area is causing us to miss lectures.,negative,transport,high
+The parking area is broken and nobody is fixing it.,negative,transport,high
+The college bus has stopped working.,negative,transport,high
+The bus route is not working at all.,negative,transport,high
+The evening bus is completely broken.,negative,transport,high
+The bus driver drives rashly and almost caused an accident.,negative,transport,critical
+The college bus brakes are failing.,negative,transport,critical
+The bus met with an accident near the gate.,negative,transport,critical
+The bus driver does a fantastic job.,positive,transport,low
+The bus driver is very good and reliable.,positive,transport,low
+The transport staff are amazing this semester.,positive,transport,low
+The transport staff are nice and friendly.,positive,transport,low
+The college bus is very helpful.,positive,transport,low
+The shuttle service is wonderful.,positive,transport,low
+The transport staff are well organised.,positive,transport,low
+The shuttle service is punctual.,positive,transport,low
+The bus route is comfortable.,positive,transport,low
+The transport staff are safe and on time.,positive,transport,low
+Does the bus driver work on Saturday?,neutral,transport,low
+The transport staff are average.,neutral,transport,low
+Could you tell me the rules for the college bus?,neutral,transport,low
+Where can I find the notice about the bus driver?,neutral,transport,low
+What are the timings of the transport staff?,neutral,transport,low
+Can someone tell me about the bus driver?,neutral,transport,low
+Please share details about the bus timings.,neutral,transport,low
+Is the bus driver open during the holidays?,neutral,transport,low
+When will the transport staff be updated?,neutral,transport,low
+Is there any change in the bus driver this semester?,neutral,transport,low
+I want to know the schedule for the parking area.,neutral,transport,low
+The classrooms are not up to the mark.,negative,facilities,medium
+The lifts are frustrating for students.,negative,facilities,medium
+The washrooms are careless.,negative,facilities,medium
+The drinking water is not improving at all.,negative,facilities,medium
+The fans in the classroom are badly managed.,negative,facilities,medium
+The classrooms have been ignored for weeks.,negative,facilities,medium
+The drinking water is disappointing.,negative,facilities,medium
+The lifts are dirty.,negative,facilities,medium
+The fans in the classroom are not cleaned properly.,negative,facilities,medium
+The fans in the classroom are not working in summer.,negative,facilities,medium
+The lifts are poorly maintained.,negative,facilities,medium
+The classrooms are unusable.,negative,facilities,high
+The fans in the classroom are failing every single day.,negative,facilities,high
+The classrooms keep crashing during practicals.,negative,facilities,high
+The classrooms are not working since a week.,negative,facilities,high
+The classrooms stop working in the middle of class.,negative,facilities,high
+The lifts are causing us to miss lectures.,negative,facilities,high
+Students are stuck inside the lift right now.,negative,facilities,critical
+The fire exit is locked and blocked.,negative,facilities,critical
+The staircase railing broke and a student fell.,negative,facilities,critical
+Live wires are hanging in the classroom.,negative,facilities,critical
+The auditorium does a fantastic job.,positive,facilities,low
+The fans in the classroom are great.,positive,facilities,low
+The lifts are well organised.,positive,facilities,low
+The lifts are wonderful.,positive,facilities,low
+The sports ground is very helpful.,positive,facilities,low
+The lifts are supportive.,positive,facilities,low
+The drinking water is better than expected.,positive,facilities,low
+The auditorium is spotless.,positive,facilities,low
+The sports ground is newly renovated.,positive,facilities,low
+The classrooms are working perfectly.,positive,facilities,low
+The fans in the classroom are average.,neutral,facilities,low
+When will the lifts be updated?,neutral,facilities,low
+Is there any change in the fans in the classroom this semester?,neutral,facilities,low
+Who should we contact regarding the classrooms?,neutral,facilities,low
+I want to know the schedule for the campus cleanliness.,neutral,facilities,low
+Could you tell me the rules for the drinking water?,neutral,facilities,low
+Is the drinking water open during the holidays?,neutral,facilities,low
+Please share details about the fans in the classroom.,neutral,facilities,low
+When does the campus cleanliness open?,neutral,facilities,low
+Will the classrooms be available during the exams?,neutral,facilities,low
+Where can I find the notice about the fans in the classroom?,neutral,facilities,low
+The admission process is not taking any effort.,negative,administration,medium
+The exam cell is frustrating for students.,negative,administration,medium
+The admin office does not meet expectations.,negative,administration,medium
+The admission process is not helpful at all.,negative,administration,medium
+The accounts department is not up to the mark.,negative,administration,medium
+The fee process is badly managed.,negative,administration,medium
+The certificate process is not improving at all.,negative,administration,medium
+The scholarship process is too slow.,negative,administration,medium
+The office staff are not responding to emails.,negative,administration,medium
+The office staff are rude to students.,negative,administration,medium
+The admin office is very confusing.,negative,administration,medium
+The accounts department has stopped working.,negative,administration,high
+The admin office is unusable.,negative,administration,high
+The scholarship process stops working in the middle of class.,negative,administration,high
+The scholarship process is not working since a week.,negative,administration,high
+The office staff have been down for three days.,negative,administration,high
+The fee process is completely broken.,negative,administration,high
+Hall tickets are not issued and the exam is tomorrow.,negative,administration,critical
+Our personal documents were leaked by the office.,negative,administration,critical
+The exam form portal closes today and payments are failing.,negative,administration,critical
+The certificate process is very good and reliable.,positive,administration,low
+The exam cell does a fantastic job.,positive,administration,low
+The scholarship process is really good.,positive,administration,low
+The exam cell is better than expected.,positive,administration,low
+The admin office is nice and friendly.,positive,administration,low
+The accounts department is supportive.,positive,administration,low
+The exam cell has improved a lot.,positive,administration,low
+The admin office is quick and efficient.,positive,administration,low
+The office staff are very cooperative.,positive,administration,low
+The fee process is transparent.,positive,administration,low
+When will the office staff be updated?,neutral,administration,low
+Please share details about the certificate process.,neutral,administration,low
+The scholarship process is average.,neutral,administration,low
+What are the timings of the admin office?,neutral,administration,low
+Is the certificate process open during the holidays?,neutral,administration,low
+I want to know the schedule for the fee process.,neutral,administration,low
+"The fee process is fine I guess, neither good nor bad.",neutral,administration,low
+Who should we contact regarding the fee process?,neutral,administration,low
+I have a question about the certificate process.,neutral,administration,low
+When does the scholarship process open?,neutral,administration,low
+Where can I find the notice about the fee process?,neutral,administration,low
+The college app is not good enough.,negative,technology,medium
+The projectors are really bad.,negative,technology,medium
+The student portal is not satisfactory.,negative,technology,medium
+The college app is not helpful at all.,negative,technology,medium
+The ERP system is not taking any effort.,negative,technology,medium
+The campus wifi is frustrating for students.,negative,technology,medium
+The internet does not meet expectations.,negative,technology,medium
+The student portal is very slow.,negative,technology,medium
+The college website is not working during lectures.,negative,technology,medium
+The online exam portal is down again.,negative,technology,medium
+The ERP system is always logging us out.,negative,technology,medium
+The college app is not working at all.,negative,technology,high
+The campus wifi is broken and nobody is fixing it.,negative,technology,high
+The college app is unusable.,negative,technology,high
+The ERP system keeps failing again and again.,negative,technology,high
+The student portal is not working since a week.,negative,technology,high
+The internet is completely broken.,negative,technology,high
+The online exam portal crashed in the middle of the exam.,negative,technology,critical
+Student passwords and marks are visible publicly on the website.,negative,technology,critical
+The college website has been hacked.,negative,technology,critical
+The college app is better than expected.,positive,technology,low
+The student portal is great.,positive,technology,low
+The internet is amazing this semester.,positive,technology,low
+The ERP system does a fantastic job.,positive,technology,low
+The student portal is clean and well maintained.,positive,technology,low
+The college app is wonderful.,positive,technology,low
+The campus wifi is nice and friendly.,positive,technology,low
+The ERP system is fast and stable.,positive,technology,low
+The college app is easy to use.,positive,technology,low
+The student portal is working smoothly.,positive,technology,low
+Could you tell me the rules for the ERP system?,neutral,technology,low
+Will the online exam portal be available during the exams?,neutral,technology,low
+Who should we contact regarding the college website?,neutral,technology,low
+Does the ERP system work on Saturday?,neutral,technology,low
+"The student portal is okay, nothing special.",neutral,technology,low
+Is the online exam portal open during the holidays?,neutral,technology,low
+Please share details about the internet.,neutral,technology,low
+Please inform us if the college app will change next term.,neutral,technology,low
+Where can I find the notice about the college app?,neutral,technology,low
+Is there any change in the projectors this semester?,neutral,technology,low
+I have a question about the campus wifi.,neutral,technology,low
+bad teaching,negative,teaching,medium
+worst teachers,negative,teaching,medium
+teachers are good,positive,teaching,low
+nice faculty,positive,teaching,low
+worst canteen,negative,cafeteria,medium
+canteen food is horrible,negative,cafeteria,medium
+good food,positive,cafeteria,low
+hostel is dirty,negative,hostel,medium
+hostel is nice,positive,hostel,low
+library is good,positive,library,low
+library is too noisy,negative,library,medium
+wifi slow,negative,technology,medium
+wifi not working,negative,technology,high
+portal is down,negative,technology,high
+bus always late,negative,transport,medium
+bus is good,positive,transport,low
+washrooms are dirty,negative,facilities,medium
+campus is clean,positive,facilities,low
+office staff rude,negative,administration,medium
+admin is helpful,positive,administration,low
+lab pcs not working,negative,laboratory,high
+lab is good,positive,laboratory,low
+very bad experience with the teachers,negative,teaching,medium
+excellent professors,positive,teaching,low
+ok,neutral,facilities,low
+average experience overall,neutral,administration,low
+nothing to complain about the canteen,positive,cafeteria,low
+the teacher is not bad,positive,teaching,low
+teaching is not good,negative,teaching,medium
+faculty is not helpful,negative,teaching,medium
+teachers are not interested in teaching,negative,teaching,medium
