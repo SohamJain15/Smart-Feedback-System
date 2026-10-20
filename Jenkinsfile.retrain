@@ -1,0 +1,168 @@
+// Retrain -> gate -> test -> package -> activate -> smoke test -> (rollback on failure)
+// Needs the app running at APP_URL and Python/Git on the Jenkins PATH. No Docker.
+
+def run(String cmd) { if (isUnix()) { sh cmd } else { bat cmd } }
+def runStatus(String cmd) { return isUnix() ? sh(script: cmd, returnStatus: true) : bat(script: cmd, returnStatus: true) }
+def venvPy() { return isUnix() ? "${env.WORKSPACE}/.venv/bin/python" : "${env.WORKSPACE}\\.venv\\Scripts\\python" }
+def tool(String args) { return "\"${venvPy()}\" -m ml.pipeline_tools ${args}" }
+
+// key=value lines -> map (plain loop on purpose: safest inside Jenkins' CPS/sandbox)
+def readEnvFile(String path) {
+  def result = [:]
+  for (String line : readFile(path).split('\r?\n')) {
+    int idx = line.indexOf('=')
+    if (idx > 0) { result[line.substring(0, idx).trim()] = line.substring(idx + 1).trim() }
+  }
+  return result
+}
+
+@NonCPS
+def jsonNumber(String text, String key) {
+  def m = (text =~ "\"${key}\":\\s*([0-9.eE+-]+)")
+  return m.find() ? m.group(1) : null
+}
+
+def short4(String number) { return number == null ? '?' : (number.length() > 6 ? number.substring(0, 6) : number) }
+
+pipeline {
+  agent any
+  options { timestamps(); disableConcurrentBuilds() }
+  triggers { cron('H 2 * * *') }   // nightly; skipped automatically unless enough new labels
+  parameters {
+    booleanParam(name: 'FORCE', defaultValue: false, description: 'Retrain even if there are fewer than MIN_NEW_LABELS new labels')
+    string(name: 'MIN_NEW_LABELS', defaultValue: '20', description: 'Minimum new reviewed labels before a nightly run retrains')
+    string(name: 'APP_URL', defaultValue: 'http://127.0.0.1:8000', description: 'Where the running backend listens')
+    string(name: 'APP_MODELS_DIR', defaultValue: 'D:\\PS4\\backend\\models', description: 'Models folder the running backend reads')
+    booleanParam(name: 'SIMULATE_FAILURE', defaultValue: false, description: 'Demo: make the smoke test fail to show the automatic rollback')
+  }
+  environment {
+    ART = "${WORKSPACE}/artifacts"
+    // PROCEED / DEPLOYED are deliberately NOT declared here: Jenkins may ignore script assignments
+    // to variables defined in an environment block. Unset means 'no' (we compare against 'true').
+  }
+  stages {
+    stage('Setup') {
+      steps {
+        checkout scm
+        run('python -m venv .venv')
+        run("\"${venvPy()}\" -m pip install -r backend/requirements.txt")
+      }
+    }
+    stage('Info') {
+      steps {
+        dir('backend') { run(tool("info --app-url \"${params.APP_URL}\" --out \"${env.ART}/info.env\"")) }
+        script {
+          def info = readEnvFile('artifacts/info.env')
+          env.PREV = info.active_version
+          env.VERSION = info.next_version
+          env.LIVE_F1 = info.aggregate_f1
+          int labelled = Integer.parseInt(info.newly_labelled)
+          int minNew = Integer.parseInt(params.MIN_NEW_LABELS.trim())
+          if (!params.FORCE && labelled < minNew) {
+            currentBuild.result = 'NOT_BUILT'
+            currentBuild.description = "Skipped: ${labelled} new labels < ${minNew}"
+          } else {
+            env.PROCEED = 'true'
+          }
+        }
+      }
+    }
+    stage('Export labels') {
+      when { expression { env.PROCEED == 'true' } }
+      steps { dir('backend') { run(tool("export --app-url \"${params.APP_URL}\" --out \"${env.ART}/reviewed.csv\"")) } }
+    }
+    stage('Train candidate') {
+      when { expression { env.PROCEED == 'true' } }
+      steps {
+        dir('backend') {
+          run("\"${venvPy()}\" -m ml.train --reviewed-csv \"${env.ART}/reviewed.csv\" --out-dir \"${env.ART}/models\" --version ${env.VERSION}")
+        }
+      }
+    }
+    stage('Quality gate') {
+      when { expression { env.PROCEED == 'true' } }
+      steps {
+        script {
+          def metricsPath = "${env.ART}/models/${env.VERSION}/metrics.json"
+          int code
+          dir('backend') {
+            code = runStatus("\"${venvPy()}\" -m ml.gate --metrics \"${metricsPath}\" --current-f1 ${env.LIVE_F1} --out \"${env.ART}/gate.txt\"")
+          }
+          if (code == 10) {
+            env.PROCEED = 'false'
+            currentBuild.result = 'NOT_BUILT'
+            currentBuild.description = readFile('artifacts/gate.txt').trim()
+            def text = readFile("artifacts/models/${env.VERSION}/metrics.json")
+            int reportCode
+            dir('backend') {
+              reportCode = runStatus(tool("report --app-url \"${params.APP_URL}\" --version ${env.VERSION} --status REJECTED --old-f1 ${env.LIVE_F1} --new-f1 ${jsonNumber(text, 'aggregate_f1')} --samples ${jsonNumber(text, 'training_samples')} --note \"Jenkins build #${env.BUILD_NUMBER}: candidate not better\""))
+            }
+            if (reportCode != 0) { currentBuild.result = 'UNSTABLE' }
+          } else if (code != 0) {
+            error('Quality gate could not run (see log)')
+          }
+        }
+      }
+    }
+    stage('Test candidate') {
+      when { expression { env.PROCEED == 'true' } }
+      steps {
+        dir('backend') {
+          withEnv(["CANDIDATE_MODEL_DIR=${env.ART}/models/${env.VERSION}"]) {
+            run("\"${venvPy()}\" -m pytest -q --junitxml=test-results.xml")
+          }
+        }
+        junit allowEmptyResults: true, testResults: 'backend/test-results.xml'
+      }
+    }
+    stage('Package model') {
+      when { expression { env.PROCEED == 'true' } }
+      steps {
+        dir('backend') { run(tool("package --model-dir \"${env.ART}/models/${env.VERSION}\" --version ${env.VERSION} --out-dir \"${env.ART}\"")) }
+        script {
+          def text = readFile("artifacts/models/${env.VERSION}/metrics.json")
+          currentBuild.description = "${env.PREV} -> ${env.VERSION}  F1 ${short4(env.LIVE_F1)} -> ${short4(jsonNumber(text, 'aggregate_f1'))}"
+        }
+      }
+    }
+    stage('Deploy (activate)') {
+      when { expression { env.PROCEED == 'true' } }
+      steps {
+        script { env.DEPLOYED = 'true' }   // set first: a rollback to PREV is harmless if activation never happened
+        dir('backend') {
+          run(tool("deploy --app-url \"${params.APP_URL}\" --version ${env.VERSION} --model-dir \"${env.ART}/models/${env.VERSION}\" --app-models-dir \"${params.APP_MODELS_DIR}\" --note \"Jenkins build #${env.BUILD_NUMBER}\""))
+        }
+      }
+    }
+    stage('Smoke test') {
+      when { expression { env.PROCEED == 'true' } }
+      steps {
+        script {
+          def target = params.SIMULATE_FAILURE ? 'v0' : env.VERSION
+          def wait = params.SIMULATE_FAILURE ? 10 : 60
+          dir('backend') { run(tool("wait-healthy --app-url \"${params.APP_URL}\" --version ${target} --timeout ${wait}")) }
+        }
+      }
+    }
+  }
+  post {
+    failure {
+      script {
+        if (env.DEPLOYED == 'true' && env.PREV) {
+          dir('backend') {
+            runStatus(tool("deploy --kind rollback --app-url \"${params.APP_URL}\" --version ${env.PREV} --app-models-dir \"${params.APP_MODELS_DIR}\" --note \"Rollback after failed build #${env.BUILD_NUMBER}\""))
+          }
+          currentBuild.description = "ROLLED BACK to ${env.PREV} (${env.VERSION} failed)"
+        }
+        if (env.VERSION) {
+          dir('backend') {
+            runStatus(tool("report --app-url \"${params.APP_URL}\" --version ${env.VERSION} --status FAILED --note \"Jenkins build #${env.BUILD_NUMBER} failed; kept ${env.PREV}\""))
+          }
+        }
+      }
+    }
+    always {
+      archiveArtifacts artifacts: 'artifacts/info.env, artifacts/gate.txt, artifacts/model-*.zip, artifacts/models/*/metrics.json', allowEmptyArchive: true, fingerprint: true
+    }
+  }
+}

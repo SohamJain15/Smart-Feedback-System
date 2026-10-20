@@ -119,21 +119,14 @@ npm run build
 
 ## Jenkins CI/CD pipeline
 
-The repository includes a cross-platform `Jenkinsfile` for Windows or Linux Jenkins agents. The agent needs Python, Node.js, Docker, Docker Compose, and permission to run Docker.
+Two Jenkins pipelines (no Docker needed) live in the repository root:
 
-1. Create a **Pipeline** job in Jenkins.
-2. Connect it to this GitHub repository using **Pipeline script from SCM**.
-3. Select the repository branch and set the script path to `Jenkinsfile`.
-4. Run **Build Now**, or configure a GitHub webhook to build on push.
+- `Jenkinsfile` — CI: backend tests, frontend build, optional Selenium smoke test.
+- `Jenkinsfile.retrain` — auto-retraining: export reviewed feedback, train a candidate, quality gate (F1 must beat
+  the live model), test, package `model-vN.zip`, activate in the running app without a restart, smoke test, and
+  automatic rollback on failure. The **Request retraining** button on `/models` can start it.
 
-The pipeline performs these real stages:
-
-```text
-checkout → backend pytest → frontend production build
-→ Docker Compose build/start → Selenium browser smoke test → container cleanup
-```
-
-The Selenium test opens the containerized React UI, submits feedback, waits for ML analysis, saves the feedback, and opens the dashboard. It runs with Chrome in the `selenium/standalone-chrome` container.
+Setup steps, parameters, demo script and troubleshooting: [`docs/DEVOPS.md`](docs/DEVOPS.md).
 
 ## GitHub notes
 

@@ -11,6 +11,7 @@ from .database import engine, get_session, init_db
 from .models import Feedback, ModelVersion, TrainingRun, RetrainingEvent
 from .schemas import AnalyzeRequest, FeedbackCreate, LabelUpdate
 from .ml_service import ml, base_dataset, TARGETS
+from .pipeline_api import router as pipeline_router, next_version, newly_labelled, THRESHOLD, jenkins_configured, trigger_jenkins
 
 def all_rows(session, statement): return session.scalars(statement).all()
 def active_versions(session): return all_rows(session, select(ModelVersion).where(ModelVersion.status == "ACTIVE"))
@@ -32,6 +33,7 @@ async def lifespan(app):
 
 app = FastAPI(title="Smart Feedback System", lifespan=lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
+app.include_router(pipeline_router)
 
 def metrics_for(session, field):
     rows = all_rows(session, select(Feedback).where(Feedback.reviewed == True))
@@ -123,10 +125,8 @@ def history(session: Session = Depends(get_session)): return all_rows(session, s
 @app.get("/api/models/retraining-status")
 def retraining_status(session: Session = Depends(get_session)):
     current_version = active_versions(session)[0].version
-    last = session.scalars(select(TrainingRun).where(TrainingRun.deployed == True).order_by(TrainingRun.completed_at.desc())).first()
-    cutoff = last.completed_at if last else datetime.min
-    count = sum(x.reviewed and x.created_at > cutoff for x in all_rows(session, select(Feedback)))
-    return {"newly_labelled": count, "threshold": 20, "recommended": count >= 20, "active_version": current_version}
+    count = newly_labelled(session)
+    return {"newly_labelled": count, "threshold": THRESHOLD, "recommended": count >= THRESHOLD, "active_version": current_version}
 
 def run_training(run_id):
     with Session(engine) as session:
@@ -150,10 +150,10 @@ def run_training(run_id):
 
 @app.post("/api/models/retrain")
 def retrain(background_tasks: BackgroundTasks, session: Session = Depends(get_session)):
+    if jenkins_configured(): return trigger_jenkins()  # Jenkins owns retraining when configured
     running=session.scalars(select(TrainingRun).where(TrainingRun.status=="RUNNING")).first()
     if running: raise HTTPException(409,"A retraining run is already active")
-    versions=[int(x.version[1:]) for x in all_rows(session, select(ModelVersion)) if x.version.startswith('v') and x.version[1:].isdigit()]
-    run=TrainingRun(version=f"v{max(versions,default=0)+1}"); session.add(run); session.commit(); session.refresh(run); background_tasks.add_task(run_training,run.id); return run
+    run=TrainingRun(version=next_version(session)); session.add(run); session.commit(); session.refresh(run); background_tasks.add_task(run_training,run.id); return run
 
 @app.get("/api/models/training-runs")
 def runs(session: Session = Depends(get_session)): return all_rows(session, select(TrainingRun).order_by(TrainingRun.started_at.desc()))
