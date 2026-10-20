@@ -121,8 +121,8 @@ report could not be saved.
 | 1 Git / GitHub | The repository, commit history, pull requests |
 | 2 Jenkins install and setup | Two Jenkins jobs, plugins and credentials (this document) |
 | 3 CI / CD with Jenkins | `Jenkinsfile` (CI) and `Jenkinsfile.retrain` (CD) |
-| 4, 5 Docker | `Dockerfile`s and `docker-compose.yml` are in the repository but are not run by the pipeline |
-| 6, 7 Selenium | `e2e/test_feedback_flow.py`; optional `RUN_E2E` stage runs it locally with Chrome |
+| 4, 5 Docker | `Dockerfile`s (multi-stage frontend build served by nginx) and `docker-compose.yml` (health check, named volume, frontend on port 3000); not run by the pipeline |
+| 6, 7 Selenium | `e2e/test_feedback_flow.py`; `docker compose --profile test run --rm e2e` runs it against the containerised app; the optional `RUN_E2E` stage runs it locally with Chrome |
 | 8 ML model in a CI/CD pipeline | Train, quality gate, test, package, activate in `Jenkinsfile.retrain` |
 | 9 Deploy models through Jenkins | Versioned model artifact, activation without restart, smoke test, rollback |
 | 10 Mini project: smart feedback with auto-retraining | The whole system |
