@@ -1,10 +1,10 @@
 // Retrain -> gate -> test -> package -> activate -> smoke test -> (rollback on failure)
 // Needs the app running at APP_URL and Python/Git on the Jenkins PATH. No Docker.
 
-def run(String cmd) { if (isUnix()) { sh cmd } else { bat cmd } }
+def runCmd(String cmd) { if (isUnix()) { sh cmd } else { bat cmd } }
 def runStatus(String cmd) { return isUnix() ? sh(script: cmd, returnStatus: true) : bat(script: cmd, returnStatus: true) }
 def venvPy() { return isUnix() ? "${env.WORKSPACE}/.venv/bin/python" : "${env.WORKSPACE}\\.venv\\Scripts\\python" }
-def tool(String args) { return "\"${venvPy()}\" -m ml.pipeline_tools ${args}" }
+def pyTool(String args) { return "\"${venvPy()}\" -m ml.pipeline_tools ${args}" }
 
 // key=value lines -> map (plain loop on purpose: safest inside Jenkins' CPS/sandbox)
 def readEnvFile(String path) {
@@ -44,13 +44,13 @@ pipeline {
     stage('Setup') {
       steps {
         checkout scm
-        run('python -m venv .venv')
-        run("\"${venvPy()}\" -m pip install -r backend/requirements.txt")
+        runCmd('python -m venv .venv')
+        runCmd("\"${venvPy()}\" -m pip install -r backend/requirements.txt")
       }
     }
     stage('Info') {
       steps {
-        dir('backend') { run(tool("info --app-url \"${params.APP_URL}\" --out \"${env.ART}/info.env\"")) }
+        dir('backend') { runCmd(pyTool("info --app-url \"${params.APP_URL}\" --out \"${env.ART}/info.env\"")) }
         script {
           def info = readEnvFile('artifacts/info.env')
           env.PREV = info.active_version
@@ -69,13 +69,13 @@ pipeline {
     }
     stage('Export labels') {
       when { expression { env.PROCEED == 'true' } }
-      steps { dir('backend') { run(tool("export --app-url \"${params.APP_URL}\" --out \"${env.ART}/reviewed.csv\"")) } }
+      steps { dir('backend') { runCmd(pyTool("export --app-url \"${params.APP_URL}\" --out \"${env.ART}/reviewed.csv\"")) } }
     }
     stage('Train candidate') {
       when { expression { env.PROCEED == 'true' } }
       steps {
         dir('backend') {
-          run("\"${venvPy()}\" -m ml.train --reviewed-csv \"${env.ART}/reviewed.csv\" --out-dir \"${env.ART}/models\" --version ${env.VERSION}")
+          runCmd("\"${venvPy()}\" -m ml.train --reviewed-csv \"${env.ART}/reviewed.csv\" --out-dir \"${env.ART}/models\" --version ${env.VERSION}")
         }
       }
     }
@@ -95,7 +95,7 @@ pipeline {
             def text = readFile("artifacts/models/${env.VERSION}/metrics.json")
             int reportCode
             dir('backend') {
-              reportCode = runStatus(tool("report --app-url \"${params.APP_URL}\" --version ${env.VERSION} --status REJECTED --old-f1 ${env.LIVE_F1} --new-f1 ${jsonNumber(text, 'aggregate_f1')} --samples ${jsonNumber(text, 'training_samples')} --note \"Jenkins build #${env.BUILD_NUMBER}: candidate not better\""))
+              reportCode = runStatus(pyTool("report --app-url \"${params.APP_URL}\" --version ${env.VERSION} --status REJECTED --old-f1 ${env.LIVE_F1} --new-f1 ${jsonNumber(text, 'aggregate_f1')} --samples ${jsonNumber(text, 'training_samples')} --note \"Jenkins build #${env.BUILD_NUMBER}: candidate not better\""))
             }
             if (reportCode != 0) { currentBuild.result = 'UNSTABLE' }
           } else if (code != 0) {
@@ -109,7 +109,7 @@ pipeline {
       steps {
         dir('backend') {
           withEnv(["CANDIDATE_MODEL_DIR=${env.ART}/models/${env.VERSION}"]) {
-            run("\"${venvPy()}\" -m pytest -q --junitxml=test-results.xml")
+            runCmd("\"${venvPy()}\" -m pytest -q --junitxml=test-results.xml")
           }
         }
         junit allowEmptyResults: true, testResults: 'backend/test-results.xml'
@@ -118,7 +118,7 @@ pipeline {
     stage('Package model') {
       when { expression { env.PROCEED == 'true' } }
       steps {
-        dir('backend') { run(tool("package --model-dir \"${env.ART}/models/${env.VERSION}\" --version ${env.VERSION} --out-dir \"${env.ART}\"")) }
+        dir('backend') { runCmd(pyTool("package --model-dir \"${env.ART}/models/${env.VERSION}\" --version ${env.VERSION} --out-dir \"${env.ART}\"")) }
         script {
           def text = readFile("artifacts/models/${env.VERSION}/metrics.json")
           currentBuild.description = "${env.PREV} -> ${env.VERSION}  F1 ${short4(env.LIVE_F1)} -> ${short4(jsonNumber(text, 'aggregate_f1'))}"
@@ -130,7 +130,7 @@ pipeline {
       steps {
         script { env.DEPLOYED = 'true' }   // set first: a rollback to PREV is harmless if activation never happened
         dir('backend') {
-          run(tool("deploy --app-url \"${params.APP_URL}\" --version ${env.VERSION} --model-dir \"${env.ART}/models/${env.VERSION}\" --app-models-dir \"${params.APP_MODELS_DIR}\" --note \"Jenkins build #${env.BUILD_NUMBER}\""))
+          runCmd(pyTool("deploy --app-url \"${params.APP_URL}\" --version ${env.VERSION} --model-dir \"${env.ART}/models/${env.VERSION}\" --app-models-dir \"${params.APP_MODELS_DIR}\" --note \"Jenkins build #${env.BUILD_NUMBER}\""))
         }
       }
     }
@@ -140,7 +140,7 @@ pipeline {
         script {
           def target = params.SIMULATE_FAILURE ? 'v0' : env.VERSION
           def wait = params.SIMULATE_FAILURE ? 10 : 60
-          dir('backend') { run(tool("wait-healthy --app-url \"${params.APP_URL}\" --version ${target} --timeout ${wait}")) }
+          dir('backend') { runCmd(pyTool("wait-healthy --app-url \"${params.APP_URL}\" --version ${target} --timeout ${wait}")) }
         }
       }
     }
@@ -150,13 +150,13 @@ pipeline {
       script {
         if (env.DEPLOYED == 'true' && env.PREV) {
           dir('backend') {
-            runStatus(tool("deploy --kind rollback --app-url \"${params.APP_URL}\" --version ${env.PREV} --app-models-dir \"${params.APP_MODELS_DIR}\" --note \"Rollback after failed build #${env.BUILD_NUMBER}\""))
+            runStatus(pyTool("deploy --kind rollback --app-url \"${params.APP_URL}\" --version ${env.PREV} --app-models-dir \"${params.APP_MODELS_DIR}\" --note \"Rollback after failed build #${env.BUILD_NUMBER}\""))
           }
           currentBuild.description = "ROLLED BACK to ${env.PREV} (${env.VERSION} failed)"
         }
         if (env.VERSION) {
           dir('backend') {
-            runStatus(tool("report --app-url \"${params.APP_URL}\" --version ${env.VERSION} --status FAILED --note \"Jenkins build #${env.BUILD_NUMBER} failed; kept ${env.PREV}\""))
+            runStatus(pyTool("report --app-url \"${params.APP_URL}\" --version ${env.VERSION} --status FAILED --note \"Jenkins build #${env.BUILD_NUMBER} failed; kept ${env.PREV}\""))
           }
         }
       }

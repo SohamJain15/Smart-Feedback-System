@@ -1,6 +1,6 @@
 // CI pipeline: tests + frontend build (+ optional Selenium). No Docker needed.
 def isWin() { return !isUnix() }
-def run(String cmd) { if (isUnix()) { sh cmd } else { bat cmd } }
+def runCmd(String cmd) { if (isUnix()) { sh cmd } else { bat cmd } }
 def venvPy() { return isUnix() ? "${env.WORKSPACE}/.venv/bin/python" : "${env.WORKSPACE}\\.venv\\Scripts\\python" }
 
 pipeline {
@@ -15,18 +15,18 @@ pipeline {
     }
     stage('Backend tests') {
       steps {
-        run('python -m venv .venv')
-        run("\"${venvPy()}\" -m pip install -r backend/requirements.txt")
+        runCmd('python -m venv .venv')
+        runCmd("\"${venvPy()}\" -m pip install -r backend/requirements.txt")
         dir('backend') {
-          run("\"${venvPy()}\" -m pytest -q --junitxml=test-results.xml")
+          runCmd("\"${venvPy()}\" -m pytest -q --junitxml=test-results.xml")
         }
       }
     }
     stage('Frontend build') {
       steps {
         dir('frontend') {
-          run('npm ci')
-          run('npm run build')
+          runCmd('npm ci')
+          runCmd('npm run build')
         }
         archiveArtifacts artifacts: 'frontend/dist/**', fingerprint: true
       }
@@ -34,8 +34,8 @@ pipeline {
     stage('E2E (Selenium, optional)') {
       when { expression { params.RUN_E2E } }
       steps {
-        run("\"${venvPy()}\" -m pip install -r e2e/requirements.txt")
-        run("\"${venvPy()}\" e2e/run_local_e2e.py")
+        runCmd("\"${venvPy()}\" -m pip install -r e2e/requirements.txt")
+        runCmd("\"${venvPy()}\" e2e/run_local_e2e.py")
       }
     }
   }
